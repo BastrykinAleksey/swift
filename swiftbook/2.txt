@@ -1,0 +1,23 @@
+board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02
+board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08
+var square = 0
+var diceRoll = 0
+
+gameLoop: while square != finalSquare {
+    diceRoll += 1
+    if diceRoll == 7 { diceRoll = 1 }
+    switch square + diceRoll {
+    case finalSquare:
+        //после броска кубика мы попадаем на клетку 25, игра окончена
+        break gameLoop
+    case let newSquare where newSquare > finalSquare:
+         //мы кинули кубик на слишком большое значение, значит нам нужно кинуть снова
+		print("newSquare")
+        continue gameLoop
+    default:
+        //допустимое движение по игровому полю, двигаемся
+        square += diceRoll
+        square += board[square]
+    }
+}
+print("Game over!")
